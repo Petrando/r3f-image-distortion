@@ -120,27 +120,27 @@ export const ParticlesScene = () => {
 
     useEffect(()=>{
         const onMouseMove = (event: MouseEvent) => {      
-        const mouse = new THREE.Vector2(
-            (event.clientX / width) * 2 - 1,
-            -(event.clientY / height) * 2 + 1
-        )
-        raycaster.setFromCamera(mouse, camera)
-        
-        if(particlesRef.current !== null){
-            const intersects = raycaster.intersectObject(particlesRef.current)
+            const mouse = new THREE.Vector2(
+                (event.clientX / width) * 2 - 1,
+                -(event.clientY / height) * 2 + 1
+            )
+            raycaster.setFromCamera(mouse, camera)
+            
+            if(particlesRef.current !== null){
+                const intersects = raycaster.intersectObject(particlesRef.current)
 
-            const material = particlesRef.current.material as THREE.ShaderMaterial
-            if (intersects.length > 0) {            
-                const point = intersects[0].point
-                material.uniforms.uMouse.value = point
-            } else {
-                material.uniforms.uMouse.value = new THREE.Vector3(
-                    999,
-                    999,
-                    999
-                )
+                const material = particlesRef.current.material as THREE.ShaderMaterial
+                if (intersects.length > 0) {            
+                    const point = intersects[0].point
+                    material.uniforms.uMouse.value = point
+                } else {
+                    material.uniforms.uMouse.value = new THREE.Vector3(
+                        999,
+                        999,
+                        999
+                    )
+                }
             }
-        }
         
         }
 

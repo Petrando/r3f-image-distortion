@@ -77,15 +77,15 @@ export const ParticlesScene = () => {
 
     const picTexture = useTexture("picture-1.png")
     const [vidTexture, setVidTexture] = useState<THREE.VideoTexture>()
-
-    const entryAnimated = useRef(false)
+    
     const raycaster = new THREE.Raycaster()
 
     const defaultPoint = new THREE.Vector3(999, 999, 999)
 
-    const [ sizes, setSizes ] = useState({
+    const sizes = {
         width: window.innerWidth, height: window.innerHeight, pixelratio: Math.min(window.devicePixelRatio, 2)
-    }) 
+    }
+    
     const { uSizeVal, uProgressVal, mediaType, videoControl, uDistortVal } = useControls({ 
         uSizeVal: {value: 0.2, min: 0, step: 0.05}, 
         uProgressVal: {
@@ -232,7 +232,6 @@ export const ParticlesScene = () => {
         }
     })
     
-
     return (
         <points ref={particlesRef}>
             <planeGeometry args={[10, 10, 128, 128]} />

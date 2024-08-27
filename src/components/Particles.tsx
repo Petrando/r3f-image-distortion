@@ -85,19 +85,19 @@ export const ParticlesScene = () => {
     const sizes = {
         width: window.innerWidth, height: window.innerHeight, pixelratio: Math.min(window.devicePixelRatio, 2)
     }
-    
-    const { uSizeVal, uProgressVal, mediaType, videoControl, uDistortVal } = useControls({ 
-        uSizeVal: {value: 0.2, min: 0, step: 0.05}, 
+        
+    const [{ uSizeVal, uProgressVal, uDistortVal, mediaType, videoControl }, set] = useControls(() => ({ 
+        uSizeVal: {value: 0.2, min: 0, step: 0.05},
         uProgressVal: {
-            value: 1, min: 0, max: 1, step: 0.01
+            value: 1, min: 0, max: 1, step: 0.01,
         },
         uDistortVal: { value: false, label: 'Distortion'},
         mediaType: { 
             value: 'image', 
             options: ['image', 'movie'] 
         },
-        videoControl: { value: false, label: 'Play Video' }    
-    })
+        videoControl: { value: false, label: 'Play Video' } 
+    }))
     
     const { width, height, pixelratio } = sizes
         
@@ -117,6 +117,16 @@ export const ParticlesScene = () => {
     }), [  ])
 
     const { camera } = useThree()
+
+    useEffect(() => {        
+        gsap.to({ progress: 1 }, {
+            duration: 3,
+            progress: 0,
+            onUpdate: function () {                    
+                set({ uProgressVal: this.targets()[0].progress });
+            }
+        });                
+    }, []);
 
     useEffect(()=>{
         const onMouseMove = (event: MouseEvent) => {      
@@ -169,16 +179,8 @@ export const ParticlesScene = () => {
         }
     }, [mediaType, videoControl]);
 
-    useEffect(() => {
-        if (particlesRef.current) {
-            const material = particlesRef.current.material as THREE.ShaderMaterial;
-            gsap.to(material.uniforms.uProgress, {
-                value: 0,
-                duration: 2,
-                ease: "power2.inOut"
-            });
-        }
-    }, [particlesRef]);
+    
+    
 
     useEffect(()=>{
         const video = document.getElementById("video") as HTMLVideoElement
@@ -225,9 +227,9 @@ export const ParticlesScene = () => {
                     window.innerHeight * pixelratio
                 )
             )
+            material.uniforms.uProgress.value = uProgressVal            
             material.uniforms.uTime.value = t
-            material.uniforms.uDistortion.value = uDistortVal?1.:0.
-            //material.uniforms.uProgress.value = uProgressVal      
+            material.uniforms.uDistortion.value = uDistortVal?1.:0.            
         
         }
     })

@@ -179,9 +179,6 @@ export const ParticlesScene = () => {
         }
     }, [mediaType, videoControl]);
 
-    
-    
-
     useEffect(()=>{
         const video = document.getElementById("video") as HTMLVideoElement
         const videoTexture = new THREE.VideoTexture(video)

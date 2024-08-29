@@ -27,4 +27,13 @@ export default defineConfig({
       },
     }),
   ],
+  build: {
+    rollupOptions: {
+      input: {
+        main: './index.html',
+        // Ensure service-worker.js is in the build output
+        sw: './src/service-worker.js',
+      },
+    },
+  },
 })

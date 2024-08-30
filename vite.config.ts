@@ -23,6 +23,7 @@ export default defineConfig({
         short_name: 'img-particles',
         description: 'Particles image technique with threeJs',
         theme_color: '#FFFFFF',
+        background_color: '#E8EBF2',
         icons: [
           {
             src: '/android-chrome-192x192.png',
@@ -52,7 +53,10 @@ export default defineConfig({
             purpose: 'maskable'
           }          
         ],
-        display: "standalone"
+        display: "standalone",
+        scope: "/",
+        start_url: "/",
+        orientation: "portrait"
       },
     }),
   ],

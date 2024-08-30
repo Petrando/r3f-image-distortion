@@ -9,21 +9,50 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+      workbox: {
+        clientsClaim: true,
+        skipWaiting: true,
+        globPatterns: ['**/*.{js,css,html,ico,png,svg}']
+      },
       devOptions: {
         enabled: true,
       },
       manifest: {
         name: 'r3f-image-distortion',
-        short_name: 'AppName',
-        description: 'Your app description',
-        theme_color: '#ffffff',
+        short_name: 'img-particles',
+        description: 'Particles image technique with threeJs',
+        theme_color: '#FFFFFF',
         icons: [
           {
-            src: '/pwa-icon.png',
-            sizes: '497x502',
+            src: '/android-chrome-192x192.png',
+            sizes: '192x192',
             type: 'image/png',
-          },          
+          },
+          {
+            src: '/android-chrome-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+          },
+          {
+            src: '/apple-touch-icon.png',
+            sizes: '180x180',
+            type: 'image/png',
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any'
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable'
+          }          
         ],
+        display: "standalone"
       },
     }),
   ],

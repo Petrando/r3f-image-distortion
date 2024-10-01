@@ -231,9 +231,11 @@ export const ParticlesScene = () => {
         }
     })
     
+    const picDimension = width < 640? (width <= 344? 3:4):10
+    console.log(picDimension)
     return (
         <points ref={particlesRef}>
-            <planeGeometry args={[10, 10, 128, 128]} />
+            <planeGeometry args={[picDimension, picDimension, 128, 128]} />
             <shaderMaterial
                 depthWrite={false}
                 fragmentShader={fragmentShader}
